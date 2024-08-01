@@ -6,7 +6,7 @@ from hatm.domain.repositories import (AbstractHatmRepository,
 
 
 class MockHatmRepository(AbstractHatmRepository):
-    _repository = None  # todo: poka bilmeim, ozin koresin go
+    _repository = None  # todo: poka bilmeim, ozin koresin go || pylint: disable=fixme
 
     def get(self, hatm_id: str) -> Hatm:
         pass
@@ -47,7 +47,7 @@ class MockHatmRepository(AbstractHatmRepository):
 
 
 class MockJuzRepository(AbstractJuzRepository):
-    _repository = None  # todo: poka bilmeim, ozin koresin go
+    _repository = None  # todo: poka bilmeim, ozin koresin go || pylint: disable=fixme
 
     def get(self, juz_id: str) -> Juz:
         pass
