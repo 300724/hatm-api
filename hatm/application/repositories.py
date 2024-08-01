@@ -43,6 +43,9 @@ class SQLAlchemyHatmRepository(AbstractHatmRepository):
             title=title,
             description=description,
             is_public=is_public,
+            is_completed=False,
+            is_published=False,
+            created_at=datetime.now(),
             deadline=deadline,
         )
         self._session.add(hatm)
