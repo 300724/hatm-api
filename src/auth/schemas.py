@@ -1,25 +1,16 @@
-from typing import Annotated, Union
+from dataclasses import dataclass
 
 from pydantic import BaseModel
 
 
-class UserCreate(BaseModel):
-    username: str
-    password: str
-    first_name: str
-    last_name: str
-    is_admin: bool
-    is_superuser: bool
-
-
+@dataclass(frozen=True)
 class User(BaseModel):
-    username: str
-    first_name: str
-    last_name: str
+    user_id: str
     is_admin: bool
     is_superuser: bool
 
 
+@dataclass(frozen=True)
 class Token(BaseModel):
     access_token: str
     access_token_expires_in: int
@@ -27,14 +18,11 @@ class Token(BaseModel):
     refresh_token_expires_in: int
 
 
+@dataclass(frozen=True)
 class TokenData(BaseModel):
-    username: str
+    user_id: str
 
 
-class AuthPassword(BaseModel):
-    username: str
-    password: str
-
-
+@dataclass(frozen=True)
 class RefreshToken(BaseModel):
     refresh_token: str
