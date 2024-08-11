@@ -4,47 +4,44 @@ from sqlalchemy.orm import Session
 from auth.models import User
 from auth.routers import get_current_user
 from database import get_db
-from .schemas import HatmCreate, HatmGet
 
 router = APIRouter()
 
 
-@router.post("", response_model=HatmGet)
-async def create_hatm(
-    hatmDto: HatmCreate,
-):
-    print(hatmDto)
-
-@router.get("", response_model=list[HatmGet])
-async def get_hatm(
+@router.post("/take")
+async def take_juzs(
     request: Request,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
     print(request, db, current_user)
+
 
 @router.get("/mine")
-async def get_my_hatm(
+async def get_my_juzs(
     request: Request,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
     print(request, db, current_user)
 
-@router.get("/{hatm_id}")
-async def get_hatm_by_id(
-    request: Request,
-    hatm_id: str,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-):
-    print(request, hatm_id, db, current_user)
 
-@router.get("/{hatm_id}/juzs")
-async def get_free_juzs_of_hatm(
+@router.patch("/cancel/{id}")
+async def cancel_juz(
     request: Request,
-    hatm_id: str,
+    id: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    print(request, hatm_id, db, current_user)
+    """This route takes a list of juz ids and cancels them. It returns a list of juz numbers that were already cancelled and a list of juz numbers that were succesfully cancelled."""
+    print(request, id, db, current_user)
+    
+@router.patch("/finish/{id}")
+async def finish_juz(
+    request: Request,
+    id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """This route takes a list of juz ids and finishes them. It returns a list of juz numbers that were already finished and a list of juz numbers that were succesfully finished."""
+    print(request, id, db, current_user)
