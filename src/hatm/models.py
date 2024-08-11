@@ -14,7 +14,7 @@ class Juz(Base):
     index = Column(Integer, nullable=False, index=True)
     is_completed = Column(Boolean, default=False)
     user_id = Column(String, ForeignKey("users.id"))
-    hatm_id = Column(UUIDType(as_uuid=True), ForeignKey("hatms.id"))
+    hatm_id = Column(String, ForeignKey("hatms.id"))
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
@@ -38,7 +38,7 @@ class Hatm(Base):
     is_published = Column(Boolean, default=True)
     created_at = Column(DateTime, server_default=func.now())
     deadline = Column(DateTime, nullable=False)
-    creator_id = Column(UUIDType(as_uuid=True), ForeignKey("users.id"))
+    creator_id = Column(String, ForeignKey("users.id"))
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 

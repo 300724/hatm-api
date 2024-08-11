@@ -6,6 +6,7 @@ from config import HOST, PORT
 from database import Base, engine
 from hatm.models import Hatm
 from hatm.routers import router as hatm_router
+from juz.routers import router as juz_router
 
 app = FastAPI(
     title="Hatm API",
@@ -25,6 +26,7 @@ app.add_middleware(
 )
 
 app.include_router(hatm_router, prefix="/hatm", tags=["hatm"])
+app.include_router(juz_router, prefix="/juzs", tags=["juz"])
 
 models = [Hatm, User]
 
