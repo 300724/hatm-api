@@ -24,5 +24,15 @@ class TokenData(BaseModel):
 
 
 @dataclass(frozen=True)
-class RefreshToken(BaseModel):
+class RefreshTokenDto(BaseModel):
+    refresh_token: str
+
+
+class UserCredentialsDto(BaseModel):
+    client_id: str
+    password: str
+
+
+class UserTokensDto(BaseModel):
+    access_token: str
     refresh_token: str

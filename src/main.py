@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from auth.models import User
+from auth.routers import router as auth_router
 from config import HOST, PORT
 from database import Base, engine
 from hatm.models import Hatm
@@ -27,6 +28,7 @@ app.add_middleware(
 
 app.include_router(hatm_router, prefix="/hatm", tags=["hatm"])
 app.include_router(juz_router, prefix="/juzs", tags=["juz"])
+app.include_router(auth_router, prefix="", tags=["auth"])
 
 models = [Hatm, User]
 

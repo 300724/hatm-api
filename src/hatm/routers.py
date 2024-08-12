@@ -6,19 +6,21 @@ from auth.routers import get_current_user
 from database import get_db
 from juz.schemas import Juz
 
-from .schemas import HatmCreate, HatmGet
+from .schemas import HatmCreateDto, HatmGetDto
 
 router = APIRouter()
 
 
-@router.post("", response_model=HatmGet)
+@router.post("", response_model=HatmGetDto)
 async def create_hatm(
-    hatmDto: HatmCreate,
+    hatm_dto: HatmCreateDto,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
-    print(hatmDto)
+    print(hatm_dto, db, current_user)
 
 
-@router.get("", response_model=list[HatmGet])
+@router.get("", response_model=list[HatmGetDto])
 async def get_hatm(
     request: Request,
     db: Session = Depends(get_db),
@@ -27,7 +29,7 @@ async def get_hatm(
     print(request, db, current_user)
 
 
-@router.get("/mine", response_model=list[HatmGet])
+@router.get("/mine", response_model=list[HatmGetDto])
 async def get_my_hatm(
     request: Request,
     db: Session = Depends(get_db),
@@ -36,7 +38,7 @@ async def get_my_hatm(
     print(request, db, current_user)
 
 
-@router.get("/{hatm_id}", response_model=HatmGet)
+@router.get("/{hatm_id}", response_model=HatmGetDto)
 async def get_hatm_by_id(
     request: Request,
     hatm_id: str,

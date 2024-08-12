@@ -5,14 +5,14 @@ from pydantic import BaseModel
 from juz.schemas import Juz
 
 
-class HatmCreate(BaseModel):
+class HatmCreateDto(BaseModel):
     is_public: bool
     title: str
     description: str
     deadline: datetime
 
 
-class HatmGet(HatmCreate):
+class HatmGetDto(BaseModel):
     id: str
     is_public: bool
     title: str
