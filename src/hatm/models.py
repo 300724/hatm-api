@@ -1,31 +1,42 @@
-from sqlalchemy import (Boolean, Column, DateTime, ForeignKey, Integer, String,
+from sqlalchemy import (Boolean, Column, DateTime, Enum, ForeignKey, Integer, String,
                         Text)
 from sqlalchemy.dialects.postgresql import UUID as UUIDType
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from sqlalchemy import event
+from sqlalchemy.orm import Session
 
 from database import Base
+
+
+class JusStatusEnum(str, Enum):
+    completed = "completed"
+    in_progress = "in_progress"
+    free = "free"
 
 
 class Juz(Base):
     __tablename__ = "juzs"
 
-    id = Column(String, primary_key=True, index=True, unique=True, nullable=False)
+    id = Column(UUIDType, primary_key=True, index=True, unique=True, nullable=False)
     index = Column(Integer, nullable=False, index=True)
     is_completed = Column(Boolean, default=False)
-    user_id = Column(String, ForeignKey("users.id"))
+    user_id = Column(UUIDType, ForeignKey("users.id"))
     hatm_id = Column(UUIDType(as_uuid=True), ForeignKey("hatms.id"))
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    deadline = Column(DateTime, nullable=True)
 
-    hatm = relationship("Juz", back_populates="hatms")
+    # Relationships to Hatm and User
+    hatm = relationship("Hatm", back_populates="juzs")
+    user = relationship("User", back_populates="juzs")
 
 
 class Hatm(Base):
     __tablename__ = "hatms"
 
     id = Column(
-        String,
+        UUIDType,
         primary_key=True,
         index=True,
         unique=True,
@@ -42,5 +53,6 @@ class Hatm(Base):
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
+    # Corrected relationship to User
     creator = relationship("User", back_populates="hatms")
-    juzs = relationship("Juz", back_populates="hatms")
+    juzs = relationship("Juz", back_populates="hatm")
