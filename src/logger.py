@@ -2,7 +2,7 @@ import logging
 import logging.handlers
 import os
 
-from config import LOGS_DIRECTORY
+from src.config import LOGS_DIRECTORY
 
 
 def setup_logger(name, level=logging.INFO):

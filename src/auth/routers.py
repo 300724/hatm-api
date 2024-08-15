@@ -6,11 +6,11 @@ from jose import jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-from auth.models import User as UserModel
-from auth.schemas import TokenData
-from config import ALGORITHM, SECRET_KEY
-from database import get_db
-from logger import LOGGER
+from src.auth.models import User as UserModel
+from src.auth.schemas import TokenData
+from src.config import ALGORITHM, SECRET_KEY
+from src.database import get_db
+from src.logger import LOGGER
 
 from .schemas import RefreshTokenDto, UserCredentialsDto, UserTokensDto
 

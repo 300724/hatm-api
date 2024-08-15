@@ -1,9 +1,17 @@
+from enum import Enum
+
 from sqlalchemy import (Boolean, Column, DateTime, ForeignKey, Integer, String,
                         Text)
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
-from database import Base
+from src.database import Base
+
+
+class JusStatusEnum(str, Enum):
+    COMPLETED = "COMPLETED"
+    INPROGRESS = "IN PROGRESS"
+    FREE = "FREE"
 
 
 class Juz(Base):
@@ -16,8 +24,10 @@ class Juz(Base):
     hatm_id = Column(String, ForeignKey("hatms.id"))
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    deadline = Column(DateTime, nullable=True)
 
-    hatm = relationship("Juz", back_populates="hatms")
+    hatm = relationship("Hatm", back_populates="juzs")
+    user = relationship("User", back_populates="juzs")
 
 
 class Hatm(Base):
@@ -42,4 +52,4 @@ class Hatm(Base):
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
     creator = relationship("User", back_populates="hatms")
-    juzs = relationship("Juz", back_populates="hatms")
+    juzs = relationship("Juz", back_populates="hatm")

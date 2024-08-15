@@ -28,11 +28,13 @@ class RefreshTokenDto(BaseModel):
     refresh_token: str
 
 
+@dataclass(frozen=True)
 class UserCredentialsDto(BaseModel):
     client_id: str
     password: str
 
 
+@dataclass(frozen=True)
 class UserTokensDto(BaseModel):
     access_token: str
     refresh_token: str
