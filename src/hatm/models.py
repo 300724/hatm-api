@@ -1,10 +1,17 @@
+from enum import StrEnum
+
 from sqlalchemy import (Boolean, Column, DateTime, ForeignKey, Integer, String,
                         Text)
-from sqlalchemy.dialects.postgresql import UUID as UUIDType
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from database import Base
+
+
+class JusStatusEnum(StrEnum):
+    COMPLETED = "COMPLETED"
+    INPROGRESS = "IN PROGRESS"
+    FREE = "FREE"
 
 
 class Juz(Base):
@@ -14,11 +21,13 @@ class Juz(Base):
     index = Column(Integer, nullable=False, index=True)
     is_completed = Column(Boolean, default=False)
     user_id = Column(String, ForeignKey("users.id"))
-    hatm_id = Column(UUIDType(as_uuid=True), ForeignKey("hatms.id"))
+    hatm_id = Column(String, ForeignKey("hatms.id"))
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    deadline = Column(DateTime, nullable=True)
 
-    hatm = relationship("Juz", back_populates="hatms")
+    hatm = relationship("Hatm", back_populates="juzs")
+    user = relationship("User", back_populates="juzs")
 
 
 class Hatm(Base):
@@ -38,9 +47,9 @@ class Hatm(Base):
     is_published = Column(Boolean, default=True)
     created_at = Column(DateTime, server_default=func.now())
     deadline = Column(DateTime, nullable=False)
-    creator_id = Column(UUIDType(as_uuid=True), ForeignKey("users.id"))
+    creator_id = Column(String, ForeignKey("users.id"))
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
     creator = relationship("User", back_populates="hatms")
-    juzs = relationship("Juz", back_populates="hatms")
+    juzs = relationship("Juz", back_populates="hatm")
