@@ -1,14 +1,14 @@
-from enum import Enum
+from enum import StrEnum
 
 from sqlalchemy import (Boolean, Column, DateTime, ForeignKey, Integer, String,
                         Text)
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
-from src.database import Base
+from database import Base
 
 
-class JusStatusEnum(str, Enum):
+class JusStatusEnum(StrEnum):
     COMPLETED = "COMPLETED"
     INPROGRESS = "IN PROGRESS"
     FREE = "FREE"

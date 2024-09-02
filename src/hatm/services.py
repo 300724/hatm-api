@@ -5,10 +5,10 @@ from fastapi import HTTPException, status
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
-from src.logger import LOGGER
+from logger import LOGGER
 
-from src.hatm.models import Hatm, Juz
-from src.hatm.schemas import HatmCreate, JuzTakeRequest, JuzTakeResponse
+from .models import Hatm, Juz
+from .schemas import HatmCreate, JuzTakeRequest, JuzTakeResponse
 
 
 class JuzService:

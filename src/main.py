@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.auth.models import User
-from src.config import HOST, PORT
-from src.database import Base, engine
-from src.hatm.models import Hatm, Juz
-from src.hatm.routers import router as hatm_router
+from auth.models import User
+from config import HOST, PORT
+from database import Base, engine
+from hatm.models import Hatm, Juz
+from hatm.routers import router as hatm_router
 
 app = FastAPI(
     title="Hatm API",

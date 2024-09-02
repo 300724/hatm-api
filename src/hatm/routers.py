@@ -3,11 +3,11 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
 
-from src.database import get_db
+from database import get_db
 
-from src.hatm.schemas import (HatmCreate, HatmGetResponse, JuzBase, JuzTakeRequest,
+from .schemas import (HatmCreate, HatmGetResponse, JuzBase, JuzTakeRequest,
                       JuzTakeResponse)
-from src.hatm.services import HatmService, JuzService
+from .services import HatmService, JuzService
 
 router = APIRouter()
 
